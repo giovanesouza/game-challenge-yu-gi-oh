@@ -50,6 +50,13 @@ body {
     justify-content: space-around;
 }
 
+
+.container__right {
+    width: 65%;
+}
+
+
+/* Container left */
 /* Pontuação geral */
 .score_box {
     background-color: #fff;
@@ -79,4 +86,52 @@ body {
 #card-type {
     font-size: 1rem;
 
+}
+
+/* Container right */
+.card-box__container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: .3rem;
+}
+
+.card-versus__container {
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: .1rem;
+    margin-top: 5rem;
+}
+
+.versus-top,
+.versus-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.versus-bottom {
+    margin-top: 1rem;
+}
+
+/* Oculta o botão */
+#next-duel {
+    display: none;
+}
+
+/* Área das cartas */
+.card-box {
+    height: 9rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card-infield {
+    /* Herda os valores do componenete pai */
+    height: inherit;
+    width: inherit;
 }
