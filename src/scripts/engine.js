@@ -21,8 +21,8 @@ const state = {
 };
 
 const playerSides = {
-    player1: "player-field-card", 
-    computer: "computer-field-card"
+    player1: "player-cards",
+    computer: "computer-cards"
 }
 
 const pathImages = "./src/assets/icons/";
@@ -54,6 +54,36 @@ const cardData = [
     },
 ];
 
+// Seta as cartas em campo
+async function getRandomCardId() {
+    const randomIndex = Math.floor(Math.random() * cardData.length);
+
+    return cardData[randomIndex].id;
+};
+
+async function createCardImage(idCard, fieldSide) {
+    const cardImage = document.createElement('img');
+    cardImage.setAttribute('height', '100px');
+    cardImage.setAttribute('src', './src/assets/icons/card-back.png');
+    cardImage.setAttribute('data-id', idCard);
+    cardImage.classList.add('card');
+
+    // Permite o clique apenas do lado do player
+    if (fieldSide === playerSides.player1) {
+        cardImage.addEventListener('click', () => {
+            setCardsField(cardImage.getAttribute('data-id'));
+        })
+    };
+
+    cardImage.addEventListener('mouseover', ()=> {
+
+        drawSelecteCard(idCard)
+
+    });
+
+    return cardImage; // Retorna as imagens criadas
+
+}
 
 // Preenche as cartas do player e computer
 async function drawCards(cardNumbers, fieldSide) {
