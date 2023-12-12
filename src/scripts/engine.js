@@ -70,20 +70,28 @@ async function createCardImage(idCard, fieldSide) {
 
     // Permite o clique apenas do lado do player
     if (fieldSide === playerSides.player1) {
+       
+        cardImage.addEventListener('mouseover', () => {
+            drawSelectCard(idCard);
+        });
+
         cardImage.addEventListener('click', () => {
             setCardsField(cardImage.getAttribute('data-id'));
-        })
+        });
+
     };
-
-    cardImage.addEventListener('mouseover', ()=> {
-
-        drawSelecteCard(idCard)
-
-    });
 
     return cardImage; // Retorna as imagens criadas
 
+};
+
+
+async function drawSelectCard(index) {
+    state.cardsSprites.avatar.src = cardData[index].img;
+    state.cardsSprites.name.innerText = cardData[index].name;
+    state.cardsSprites.type.innerText = "Attribute: " + cardData[index].type;
 }
+
 
 // Preenche as cartas do player e computer
 async function drawCards(cardNumbers, fieldSide) {

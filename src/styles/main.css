@@ -45,6 +45,7 @@ body {
     width: 35%;
     min-width: 30rem;
     /*Nunca será menor do que 30rem*/
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -134,4 +135,13 @@ body {
     /* Herda os valores do componenete pai */
     height: inherit;
     width: inherit;
+}
+
+.card {
+
+    transition: transform .2s;
+}
+
+.card:hover {
+    transform: scale(1.2);
 }
