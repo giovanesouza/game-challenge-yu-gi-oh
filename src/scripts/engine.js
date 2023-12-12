@@ -114,7 +114,7 @@ async function drawButton(text) {
 
 async function updateScore() {
     state.score.scoreBox.innerHTML = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`;
-}
+};
 
 async function checkDuelResults(playerCardId, computerCardId) {
     let duelResults = "Empate";
@@ -124,12 +124,14 @@ async function checkDuelResults(playerCardId, computerCardId) {
     // Verifica se o jogador ganhou
     if (playerCard.WinOf.includes(computerCardId)) {
         duelResults = "Ganhou";
+        await playAudio('win');
         state.score.playerScore++;
     }
     
     // Verifica se perdeu
     if(playerCard.LoseOf.includes(computerCardId)) {
         duelResults = "Perdeu";
+        await playAudio('lose');
         state.score.computerScore++;
     }
 
@@ -167,6 +169,23 @@ async function drawCards(cardNumbers, fieldSide) {
         document.getElementById(fieldSide).appendChild(cardImage);
     }
 };
+
+async function resetDuel() {
+    state.cardsSprites.avatar.src = "";
+    state.actions.button.style.display = "none";
+
+    state.fieldCards.player.style.display = "none"
+    state.fieldCards.computer.style.display = "none"
+
+    init();
+};
+
+async function playAudio(status) {
+
+    const audio = new Audio(`./src/assets/audios/${status}.wav`);
+    audio.play();
+
+}
 
 // Chama o estado inicial do jogo
 function init() {
