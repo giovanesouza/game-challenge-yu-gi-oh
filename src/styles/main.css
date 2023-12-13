@@ -4,6 +4,11 @@ html {
 
 body {
     font-size: 1.6rem;
+    cursor: url('../assets/cursor/yugicursor.png'), default; /* Seta um cursor como padrão */
+}
+
+button, button:hover, a, a:hover, img:hover {
+    cursor: url('../assets/cursor/yamiyugicursorGLOW.png'), auto; /* Seta um cursor como automático */
 }
 
 .bg-video {
