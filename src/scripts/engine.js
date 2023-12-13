@@ -94,17 +94,39 @@ async function setCardsField(cardId) {
 
     let computerCardId = await getRandomCardId();
 
-    state.fieldCards.player.style.display = "block";
-    state.fieldCards.computer.style.display = "block";
+    await showHiddenCardFieldsImage(true);
 
-    state.fieldCards.player.src = cardData[cardId].img;
-    state.fieldCards.computer.src = cardData[computerCardId].img;
+    await hiddenCardDetails();
+
+    await drawCardsInField(cardId, computerCardId);
 
     // Verifica quem ganhou
     let duelResults = await checkDuelResults(cardId, computerCardId);
 
     await updateScore();
     await drawButton(duelResults);
+};
+
+async function drawCardsInField(cardId, computerCardId) {
+    state.fieldCards.player.src = cardData[cardId].img;
+    state.fieldCards.computer.src = cardData[computerCardId].img;
+};
+
+async function showHiddenCardFieldsImage(value) {
+    if (value === true) {
+        state.fieldCards.player.style.display = "block";
+        state.fieldCards.computer.style.display = "block";
+    }
+    if (value === false) {
+        state.fieldCards.player.style.display = "none";
+        state.fieldCards.computer.style.display = "none";
+    }
+};
+
+async function hiddenCardDetails() {
+    state.cardsSprites.avatar.src = "";
+    state.cardsSprites.name.innerText = "";
+    state.cardsSprites.type.innerText = "";
 };
 
 async function drawButton(text) {
@@ -127,9 +149,9 @@ async function checkDuelResults(playerCardId, computerCardId) {
         await playAudio('win');
         state.score.playerScore++;
     }
-    
+
     // Verifica se perdeu
-    if(playerCard.LoseOf.includes(computerCardId)) {
+    if (playerCard.LoseOf.includes(computerCardId)) {
         duelResults = "Perdeu";
         await playAudio('lose');
         state.score.computerScore++;
@@ -174,8 +196,7 @@ async function resetDuel() {
     state.cardsSprites.avatar.src = "";
     state.actions.button.style.display = "none";
 
-    state.fieldCards.player.style.display = "none"
-    state.fieldCards.computer.style.display = "none"
+    showHiddenCardFieldsImage(false);
 
     init();
 };
@@ -189,8 +210,13 @@ async function playAudio(status) {
 
 // Chama o estado inicial do jogo
 function init() {
+
+    showHiddenCardFieldsImage(false);
+
     drawCards(5, state.playerSides.player1);
     drawCards(5, state.playerSides.computer);
 };
 
 init();
+state.fieldCards.player.style.display = "block";
+state.fieldCards.computer.style.display = "block";
